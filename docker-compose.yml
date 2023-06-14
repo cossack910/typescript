@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  typescript:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www/typescript
+    tty: true
+    container_name: typescript
