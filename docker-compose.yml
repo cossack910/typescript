@@ -8,4 +8,6 @@ services:
     volumes:
       - .:/var/www/typescript
     tty: true
+    ports:
+      - 5555:80
     container_name: typescript
