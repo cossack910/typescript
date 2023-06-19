@@ -5,9 +5,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      # Node.jsのグローバル変数: 開発用途なのでdevelopmentを指定
+      - NODE_ENV=development
     volumes:
       - .:/var/www/typescript
+    command: sh -c 'cd study && yarn start'
     tty: true
     ports:
-      - 5555:80
+      - 8000:3000
     container_name: typescript
