@@ -166,13 +166,13 @@ let funcComp2 = (x:string) => {};
 //funcComp1 = funcComp2; ダメなパターン
 ```
 
-## react のプロジェクト作製
+# react のプロジェクト作製
 
 ```
 docker-compose run --rm typescript sh -c 'npx create-react-app study --template typescript'
 ```
 
-## 生の typescript
+# バニラ typescript
 
 ### コンパイル用の設定ファイルを作成
 

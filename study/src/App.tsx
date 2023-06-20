@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { getNodeMajorVersion } from 'typescript';
+//import { getNodeMajorVersion } from 'typescript';
 
 function App() {
   return (
