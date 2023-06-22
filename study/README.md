@@ -1,46 +1,227 @@
-# Getting Started with Create React App
+# typescript
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### string
 
-## Available Scripts
+```
+const name = "hello";
 
-In the project directory, you can run:
+let nameChange: string = "hello";
+nameChange = "hello2"; //string代入
 
-### `npm start`
+let username = "Hello";
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### number
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+let dummynum = 2;
+let dummyNum: number = 3;
+```
 
-### `npm test`
+### bolean
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+let bool: boolean = true;
+```
 
-### `npm run build`
+### 配列
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+let array1 = [1, 2, 3, 4, 5, 6];
+let array2 = [1, "aa", 2, "bb", 3, "ccccc"];
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### オブジェクト
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+interface NAME{
+  first: string;
+  last: string | null;
+  middle?: string; //ありでもなしでもいい
+}
 
-### `npm run eject`
+let nameObj: NAME = {first: "yamada", last: null};
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 関数
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+const func1 = (x: number, y: number) => {
+  return x + y;
+}
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### インターセクションタイプ
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+type PROFILE = {
+  age: number;
+  city: string;
+};
 
-## Learn More
+type LOGIN = {
+  username: string;
+  password: string;
+}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+//合体
+type USER = PROFILE & LOGIN;
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+const userA: USER = {
+  age: 12,
+  city: "osaka",
+  username: "xxxzzz",
+  password: "pass"
+}
+```
+
+### ユニオンタイプ
+
+```
+let value: boolean | number;
+value = true;
+value = 10;
+
+let arrayUni: (number | string)[];
+arrayUni = [0, 1, 24, 46, "aaaa"];
+```
+
+### リテラルタイプ
+
+```
+let company: "Facebook" | "google" | "amazon";
+company = "amazon";
+
+let memory: 120 | 110 | 100;
+memory = 100;
+```
+
+### タイプオフ
+
+```
+let msg: string = "Hi";
+let msg2: typeof msg; //string
+msg2 = "aaaa";
+
+let animal = {cat: "neko"};
+let newAnimal: typeof animal = {cat: "good neko"};
+```
+
+### キーオフ
+
+```
+type KEYS = {
+  primary: string;
+  secondary: string;
+};
+let key: keyof KEYS;
+key = "primary";
+```
+
+## タイプオフキーオフ
+
+```
+const SPORTS = {
+  soccer: "Soccer",
+  baseball: "Baseball",
+};
+let keySports: keyof typeof SPORTS;
+keySports = "soccer";
+```
+
+### 列挙型(enum)
+
+```
+enum OS {
+  Windows,
+  Mac,
+  Linux
+};
+interface PC {
+  id: number;
+  OSType: OS;
+};
+const PC1: PC = {
+  id: 1,
+  OSType: OS.Windows,
+};
+const PC2: PC = {
+  id: 2,
+  OSType: OS.Mac,
+};
+```
+
+### 型の交換性
+
+```
+const comp1 = "test";
+let comp2: string = comp1;
+
+// let comp3 = "test";
+// let comp4: "test" = comp3; ダメなパターン
+
+let funcComp1 = (x:number) => {};
+let funcComp2 = (x:string) => {};
+
+//funcComp1 = funcComp2; ダメなパターン
+```
+
+### ジェネリックス
+
+```
+interface GEN<T>{
+  item: T;// 型自体は定まッていない
+}
+const gen0: GEN<string> = { item: "hello" };// 使用時に動的に変更可能なのがジェネリクス
+//const gen1: GEN = { item: "hello" };//型指定なしエラー
+const gen2: GEN<number> = { item: 3} ;
+
+//string指定
+interface GENSTR<T=string>{
+  item: T;
+}
+const gen3: GENSTR = { item: "hello" };//デフォルトのstring適応のためエラーにならない
+
+//複合型
+interface GENSTRNUM<T extends string | number >{
+  item: T;
+}
+const gen4: GENSTRNUM<string> = { item: "string" };
+const gen5: GENSTRNUM<number> = { item: 13 };
+
+//関数
+function funcGen<T>(props: T) {
+  return { item: props };
+}
+const gen6 = funcGen<string>("test");
+const gen7 = funcGen<string | null>(null);//複合
+
+function funcGen1<T extends string | null>(props: T){
+  return { value: props };
+}
+const gen8 = funcGen1<string>("aaaaa");
+//const gen9 = funcGen1<string>(11); エラー数値型は指定していないため
+
+
+//プロップス
+interface Props {
+  price: number;
+}
+
+function funcGen3<T extends Props>(props: T){
+  return { value: props.price };
+}
+
+const gen10 = funcGen3({price:10});
+
+//アロー関数
+const funcGen4 = <T extends Props>(props: T) => {
+  return { value: props.price };
+};
+```
+
+# react のプロジェクト作製
+
+```
+docker-compose run --rm typescript sh -c 'npx create-react-app study --template typescript'
+```
