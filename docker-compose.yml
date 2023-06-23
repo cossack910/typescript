@@ -10,7 +10,7 @@ services:
       - NODE_ENV=development
     volumes:
       - .:/var/www/typescript
-    command: sh -c 'cd study && yarn start'
+    command: sh -c 'cd study && npm start'
     tty: true
     ports:
       - 8000:3000

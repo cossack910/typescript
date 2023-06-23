@@ -2,16 +2,20 @@
 
 ### string
 
-```
-const name = "hello";
+シングルクォート、ダブルクォート、バックチック（テンプレ文字列）
 
-let nameChange: string = "hello";
+```
+const name = "hello";わかりやすいかも？
+
+let nameChange: string = "hello"; //型明示 型推論があるため冗長?パット見わかりやすいかも？
 nameChange = "hello2"; //string代入
 
 let username = "Hello";
 ```
 
 ### number
+
+整数や浮動小数点も含むすべての数値
 
 ```
 let dummynum = 2;
@@ -26,9 +30,16 @@ let bool: boolean = true;
 
 ### 配列
 
+すべての型を格納可能
+
 ```
 let array1 = [1, 2, 3, 4, 5, 6];
 let array2 = [1, "aa", 2, "bb", 3, "ccccc"];
+
+//配列宣言
+let Array: any[];
+let stringArray: string[];
+
 ```
 
 ### オブジェクト
@@ -41,6 +52,33 @@ interface NAME{
 }
 
 let nameObj: NAME = {first: "yamada", last: null};
+
+//オブジェクト型推論
+const person = {
+  name: 'aaaa',
+  age: 99
+}
+
+//ネスト
+const data = {
+  id: 1,
+  price: 200,
+  details: {
+    title: 'candy',
+    description: '美味しいね'
+  }
+}
+
+//タプル
+const person: {
+  name: string;
+  age: number;
+  role: [number, string]; //タプル 役割がはっきりしてるときに使う
+} = {
+  name: 'aaa',
+  age: 456,
+  role: [2, 'dame'],
+}
 ```
 
 ### 関数
@@ -96,6 +134,35 @@ let memory: 120 | 110 | 100;
 memory = 100;
 ```
 
+### エイリアス型
+
+型を再利用できる。
+
+```
+//ユニオン型
+type Combinable = number | string;
+//リテラル型
+type riteCombinable = 397 | 'ohhhhhhhhhhhh';
+
+function combine(
+  num1: Combinable, //number
+  str2: Combinable  //string
+){
+  //処理
+}
+
+//便利
+type User = { name: string; age: number };
+
+function greet(user: User) {
+  console.log('Hi, I am ' + user.name);
+}
+
+function isOlder(user: User, checkAge: number) {
+  return checkAge > user.age;
+}
+```
+
 ### タイプオフ
 
 ```
@@ -131,7 +198,18 @@ keySports = "soccer";
 
 ### 列挙型(enum)
 
+定数の集合一覧などに使用する
+
 ```
+//指定しなければ自動的に数値が割り振られる
+enum Role {
+  ADMIN, //0
+  READ_ONLY, //1
+  AUTHOR, //2
+  MEIJI = 55555, //明示的に数値指定
+}
+
+
 enum OS {
   Windows,
   Mac,
@@ -229,8 +307,8 @@ import Data from "./data.json";
 type USER = typeof Data;
 ```
 
-# react のプロジェクト作製
+# react(typescript) のプロジェクト作製
 
 ```
-docker-compose run --rm typescript sh -c 'npx create-react-app study --template typescript'
+docker-compose run --rm コンテナ名 sh -c 'npx create-react-app プロジェクト名 --template typescript'
 ```

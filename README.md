@@ -6,7 +6,7 @@
 tsc –-init
 ```
 
-### javascript 変換
+### javascript 変換(コンパイル)
 
 ```
 tsc
