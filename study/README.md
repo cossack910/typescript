@@ -1,3 +1,9 @@
+# react(typescript) のプロジェクト作製
+
+```
+docker-compose run --rm コンテナ名 sh -c 'npx create-react-app プロジェクト名 --template typescript'
+```
+
 # typescript
 
 ### string
@@ -5,7 +11,7 @@
 シングルクォート、ダブルクォート、バックチック（テンプレ文字列）
 
 ```
-const name = "hello";わかりやすいかも？
+const name = "hello"; //型推論
 
 let nameChange: string = "hello"; //型明示 型推論があるため冗長?パット見わかりやすいかも？
 nameChange = "hello2"; //string代入
@@ -305,10 +311,4 @@ import Data from "./data.json";
 
 //JSON型推論
 type USER = typeof Data;
-```
-
-# react(typescript) のプロジェクト作製
-
-```
-docker-compose run --rm コンテナ名 sh -c 'npx create-react-app プロジェクト名 --template typescript'
 ```
