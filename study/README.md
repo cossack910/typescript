@@ -220,6 +220,15 @@ const funcGen4 = <T extends Props>(props: T) => {
 };
 ```
 
+### json
+
+```
+import Data from "./data.json";
+
+//JSON型推論
+type USER = typeof Data;
+```
+
 # react のプロジェクト作製
 
 ```
