@@ -89,10 +89,27 @@ const person: {
 
 ### 関数
 
+戻り値も型推論をする。いちいち型を書かなくてもよい
+
 ```
-const func1 = (x: number, y: number) => {
+const add = (x: number, y: number) => {
   return x + y;
 }
+
+//関数を型定義 (引数)=>戻り値
+let combineValues: (a:mumber, b:number) => number;
+combineValues = add;
+
+//コールバック
+function addAndHandle(n1: number, n2: number, cb: (num: number) => void) {//※コールバック関数の戻り値voidはこの関数がこの戻り値を使用しないだけ。
+  const result = n1 + n2;
+  cb(result);
+}
+//関数でコールバック関数の型がていぎされているためresultはいちいち明示しなくてもよい
+addAndHandle(10, 20, (result) =>{
+  console.log(result);
+  //return result;　※これ出来る
+});
 ```
 
 ### インターセクションタイプ
@@ -302,6 +319,36 @@ const gen10 = funcGen3({price:10});
 const funcGen4 = <T extends Props>(props: T) => {
   return { value: props.price };
 };
+```
+
+### アンノウン型
+
+入力される値がわからないときに使う。any よりマシという認識
+
+```
+let userInput: unknown;
+let userName: string;
+
+userInput = 5;
+userInput = "Max";
+
+//これなら代入出来る
+if (typeof userInput === "string") {
+  userName = userInput;
+}
+```
+
+### never 型
+
+この型は戻り値に明示する。なければ void と推測される。
+絶対に値を返さない時に使う。
+
+```
+function generateError(message: string, code: number): never {
+  throw { message: message, errorCode: code };
+}
+
+const result = generateError("error", 500);
 ```
 
 ### json
