@@ -1,7 +1,5 @@
 import React from "react";
 import "./App.css";
-import { NamedTupleMember } from "typescript";
-//import { getNodeMajorVersion } from 'typescript';
 
 function App() {
   return (
