@@ -7,8 +7,10 @@ export class Department {
   //   this.name = n;
   // }
 
+  static fiscalYear = 2023; //静的プロパティ
+
   constructor(
-    private name: string,
+    public name: string,
     public employees: string[] = [],
     private readonly id: string //readonlyは読み込みのみ
   ) {} //コンストラクタの引数にアクセス修飾子を付けることでプロパティ宣言にもなる
@@ -21,6 +23,11 @@ export class Department {
   addEmployee(employee: string) {
     this.employees.push(employee);
   }
+
+  //静的メソッド
+  static createEmploee(name: string) {
+    return name;
+  }
 }
 
 //継承
@@ -32,4 +39,14 @@ class ItDepartment extends Department {
   addReport(text: string) {
     this.reports.push(text);
   }
+
+  //オーバーライド
+  addEmployee(name: string): void {
+    if (name === "Max") {
+      return;
+    }
+    this.employees.push("Mass");
+  }
 }
+
+const it = new ItDepartment("1", ["report"]);
