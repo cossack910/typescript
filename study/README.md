@@ -27,3 +27,4 @@ docker-compose run --rm コンテナ名 sh -c 'npx create-react-app プロジェ
 | [#17](https://github.com/cossack910/typescript/issues/17) | アンノウン型             |
 | [#18](https://github.com/cossack910/typescript/issues/18) | never 型                 |
 | [#19](https://github.com/cossack910/typescript/issues/19) | json 型                  |
+| [#20](https://github.com/cossack910/typescript/issues/20) | デコレータ               |
