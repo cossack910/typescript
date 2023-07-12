@@ -56,3 +56,31 @@ export class Product {
     return this._price * (1 + tax);
   }
 }
+
+//クラスを継承して、返却するクラスデコレータ
+function WithTemplate(template: string, hookId: string) {
+  return function <T extends { new (...args: any[]): { name: string } }>(
+    originalConstructor: T
+  ) {
+    const hookEl = document.getElementById(hookId)!;
+    if (hookEl) {
+      hookEl.innerHTML = template;
+    }
+
+    return class extends originalConstructor {
+      constructor(..._: any[]) {
+        super();
+        console.log(this.name);
+      }
+    };
+  };
+}
+
+@WithTemplate("<h1>やったぜ</h1>", "App")
+class Person {
+  name = "Max";
+
+  constructor() {
+    console.log("Personオブジェクト作成中...");
+  }
+}
